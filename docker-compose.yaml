@@ -1,0 +1,9 @@
+version: "2"
+
+services:
+  consul-server:
+    image: progrium/consul
+    command: -server -bootstrap-expect 1
+    ports:
+      - "8500:8500"
+
