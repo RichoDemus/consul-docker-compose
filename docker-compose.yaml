@@ -5,13 +5,13 @@ services:
     image: progrium/consul
     command: -server -bootstrap-expect 2
     networks:
-      - qourum
+      - consul
 
-  consul-qourum-member:
+  consul-quorum-member:
     image: progrium/consul
     command: -server -join consul-master
     networks:
-      - qourum
+      - consul
     links:
       - consul-master
 
@@ -19,12 +19,12 @@ services:
     image: progrium/consul
     command: -join consul-master
     networks:
-      - qourum
+      - consul
     links:
-      - consul-qourum-member
+      - consul-master
     ports:
       - "8500:8500"
 
 networks:
-  qourum:
+  consul:
     driver: bridge
