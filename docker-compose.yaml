@@ -17,11 +17,11 @@ services:
 
   consul-client:
     image: progrium/consul
-    command: -join consul-master
+    command: -join consul-quorum-member
     networks:
       - consul
     links:
-      - consul-master
+      - consul-quorum-member
     ports:
       - "8500:8500"
 
