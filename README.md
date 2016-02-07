@@ -7,5 +7,12 @@ Sets up 3 consul containers:
 * consul-client: client node, you can connect to it via [localhost:8500](http://localhost:8500)
 
 ## How
-run foreground.sh  
-point your browser towards [localhost:8500](http://localhost:8500)
+### Run
+1. run foreground.sh  
+2. point your browser towards [localhost:8500](http://localhost:8500)
+
+### Extras
+* Add some reduncancy scaling the members: 
+  * docker-compose scale consul-qourum-member=10
+* Remove a node from the quorum:
+  * docker exec <container_name> consul leave
