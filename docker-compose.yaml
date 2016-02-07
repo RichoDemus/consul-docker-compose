@@ -10,18 +10,18 @@ services:
   consul-quorum-member:
     image: progrium/consul
     command: -server -join consul-master
+    depends_on:
+      - consul-master
     networks:
       - consul
-    links:
-      - consul-master
 
   consul-client:
     image: progrium/consul
     command: -join consul-quorum-member
+    depends_on:
+      - consul-quorum-member
     networks:
       - consul
-    links:
-      - consul-quorum-member
     ports:
       - "8500:8500"
 
