@@ -1,25 +1,17 @@
 version: "2"
 
 services:
-  consul-master:
+  consul-server:
     image: progrium/consul
-    command: -server -bootstrap-expect 2
-    networks:
-      - consul
-
-  consul-quorum-member:
-    image: progrium/consul
-    command: -server -join consul-master
-    depends_on:
-      - consul-master
+    command: -server -join consul-server
     networks:
       - consul
 
   consul-client:
     image: progrium/consul
-    command: -join consul-quorum-member
+    command: -join consul-server
     depends_on:
-      - consul-quorum-member
+      - consul-server
     networks:
       - consul
     ports:
