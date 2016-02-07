@@ -1,9 +1,30 @@
 version: "2"
 
 services:
-  consul-server:
+  consul-master:
     image: progrium/consul
-    command: -server -bootstrap-expect 1
+    command: -server -bootstrap-expect 2
+    networks:
+      - qourum
+
+  consul-qourum-member:
+    image: progrium/consul
+    command: -server -join consul-master
+    networks:
+      - qourum
+    links:
+      - consul-master
+
+  consul-client:
+    image: progrium/consul
+    command: -join consul-master
+    networks:
+      - qourum
+    links:
+      - consul-qourum-member
     ports:
       - "8500:8500"
 
+networks:
+  qourum:
+    driver: bridge
